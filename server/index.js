@@ -3,7 +3,8 @@ const typeDefs 				= require('./schema');
 const resolvers 			= require('./resolvers');
 const config 				= require('./config')['development'];
 const app					= require('./app');
-const server 				= new ApolloServer({ typeDefs, resolvers });
+const db 					= require('./models');
+const server 				= new ApolloServer({ typeDefs, resolvers, context: { db } });
 
 server.applyMiddleware({ app });
 

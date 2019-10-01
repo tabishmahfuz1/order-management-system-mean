@@ -8,4 +8,5 @@ app.use('/auth', authController);
 app.use('/item', itemController);
 
 // https://github.com/emabishi/node-jwt
+// npm i bcrypt body-parser dotenv jsonwebtoken mongoose --save
 module.exports = app;
