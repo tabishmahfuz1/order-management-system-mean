@@ -6,8 +6,9 @@ import { AppComponent } from './app.component';
 import { ItemListComponent } from './item-list/item-list.component';
 
 import { HttpClientModule } from '@angular/common/http';
-import { ApolloModule } from 'apollo-angular';
-import { HttpLinkModule } from 'apollo-angular-link-http';
+import { ApolloModule, Apollo, APOLLO_OPTIONS  } from 'apollo-angular';
+import { HttpLinkModule, HttpLink } from 'apollo-angular-link-http';
+import { InMemoryCache } from 'apollo-cache-inmemory';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,25 @@ import { HttpLinkModule } from 'apollo-angular-link-http';
     ApolloModule,
     HttpLinkModule
   ],
-  providers: [],
+  providers: [{
+    provide: APOLLO_OPTIONS,
+    useFactory: (httpLink: HttpLink) => {
+      return {
+        cache: new InMemoryCache(),
+        link: httpLink.create({
+          uri: "http://localhost:3000/graphql"
+        })
+      }
+    },
+    deps: [HttpLink]
+  }],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule { 
+  /*constructor(apollo: Apollo, httpLink: HttpLink) {
+    apollo.create({
+      link: httpLink.create({uri: 'http:localhost:3000/graphql'}),
+      cache: new InMemoryCache()
+    });
+  }*/
+}

@@ -3,7 +3,7 @@ const { gql } = require('apollo-server-express');
 const typeDefs = gql`
   type Query {
     hello: String
-    item(itemFilterInput: ItemFilterInput!): [Item]!
+    item(itemFilterInput: ItemFilterInput): [Item]!
     itemType(id: Int!): ItemType
   }
 
