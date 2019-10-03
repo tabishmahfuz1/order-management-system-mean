@@ -3,24 +3,29 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ItemListComponent } from './item-list/item-list.component';
 
 import { HttpClientModule } from '@angular/common/http';
 import { ApolloModule, Apollo, APOLLO_OPTIONS  } from 'apollo-angular';
 import { HttpLinkModule, HttpLink } from 'apollo-angular-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
+import { ComponentsModule } from './components/components.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ItemListComponent
+    AdminLayoutComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     ApolloModule,
-    HttpLinkModule
+    HttpLinkModule,
+    BrowserAnimationsModule,
+    ComponentsModule
   ],
   providers: [{
     provide: APOLLO_OPTIONS,

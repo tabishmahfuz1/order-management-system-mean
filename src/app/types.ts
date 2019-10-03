@@ -8,5 +8,5 @@ export type Item = {
 }
 
 export type Query = {
-	allItems: Item[];
+	items: Item[];
 }

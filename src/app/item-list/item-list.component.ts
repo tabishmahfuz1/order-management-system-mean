@@ -35,7 +35,7 @@ export class ItemListComponent implements OnInit {
         map(result => result.data.item)
       )*/.subscribe(itemList => {
       	// console.log(itemList.data.item);
-      	this.items = itemList.data.item;
+      	this.items = itemList.data.items;
       	// console.log(itemList)
       });
   }
