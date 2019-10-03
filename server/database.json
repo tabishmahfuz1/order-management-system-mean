@@ -2,7 +2,7 @@
   "development": {
     "username": "root",
     "password": null,
-    "database": "the_database",
+    "database": "erp",
     "host": "127.0.0.1",
     "dialect": "mysql",
     "operatorsAliases": false

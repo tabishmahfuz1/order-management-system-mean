@@ -25,10 +25,18 @@ module.exports = (sequelize, DataTypes) => {
       	field: 'qty_on_hand',
       	type: DataTypes.INTEGER
       },
+      createdAt: {
+        field: 'created_at',
+        type: 'TIMESTAMP'
+      },
+      updatedAt: {
+        field: 'updated_at',
+        type: 'TIMESTAMP'
+      }
     },
     {
       freezeTableName: true,
-      timestamps: false,
+      timestamps: true,
     }
   );
 
