@@ -12,6 +12,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { ComponentsModule } from './components/components.module';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -25,13 +26,16 @@ import { ComponentsModule } from './components/components.module';
     ApolloModule,
     HttpLinkModule,
     BrowserAnimationsModule,
-    ComponentsModule
+    ComponentsModule,
+    FormsModule
   ],
   providers: [{
     provide: APOLLO_OPTIONS,
     useFactory: (httpLink: HttpLink) => {
       return {
-        cache: new InMemoryCache(),
+        cache: new InMemoryCache({
+          addTypename: false
+        }),
         link: httpLink.create({
           uri: "http://localhost:3000/graphql"
         })

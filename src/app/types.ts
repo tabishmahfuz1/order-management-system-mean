@@ -7,6 +7,19 @@ export type Item = {
   	isActive: boolean;
 }
 
+export type ItemInput = {
+	id: number;
+  	itemName: string;
+  	itemCost: number;
+  	itemPrice: number;
+  	isActive: boolean;
+}
+
 export type Query = {
-	items: Item[];
+	item: Item[];
+	getItem: Item;
+}
+
+export type Mutation = {
+	saveItem: Item;
 }

@@ -4,6 +4,7 @@ const typeDefs = gql`
   type Query {
     hello: String
     item(itemFilterInput: ItemFilterInput): [Item]!
+    getItem(id: Int!): Item
     itemType(id: Int!): ItemType
   }
 
@@ -24,7 +25,7 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    createItem(item: ItemInput): Item!
+    saveItem(item: ItemInput): Item!
     updateItem(item: ItemInput!): Item!
     deleteItem(id: Int!): Boolean
   }

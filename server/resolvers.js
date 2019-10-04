@@ -11,17 +11,33 @@ const resolvers = {
     	let items = await db.items.findAll(filters);
 
     	return items;
+    },
+    getItem: async (_, { id }, { db }) => {
+      let item = await db.items.findByPk(id);
+
+      return item;
     }
   },
   Mutation: {
-  	createItem: async (_, { item }, { db }) => {
-  		if(!('isActive' in item)) {
-  			item.isActive = true;
-  		}
+  	saveItem: async (_, { item }, { db }) => {
+  		let itemToSave;
+      if ( 'id' in item ) {
+        itemToSave = await db.items.findByPk(item.id);
+        if(!itemToSave) {
+          throw "Item Not Found Exception";
+        }
+        delete item.id;
+        await itemToSave.update(item);
+      } else {
 
-  		let createdItem = await db.items.create(item);
+        if(!('isActive' in item)) {
+          item.isActive = true;
+        }
 
-  		return createdItem;
+        itemToSave = await db.items.create(item);
+      }
+
+  		return itemToSave;
   	}
   }
 };

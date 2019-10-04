@@ -4,7 +4,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AdminLayoutRoutes } from './admin-layout.routing';
 import { DashboardComponent } from '../../dashboard/dashboard.component';
-import { ItemListComponent } from '../../item-list/item-list.component';
+import { ItemListComponent } from '../../inventory/item-list/item-list.component';
+import { InventoryModule } from '../../inventory/inventory.module';
 
 import {
   MatButtonModule,
@@ -26,10 +27,10 @@ import {
     MatInputModule,
     MatSelectModule,
     MatTooltipModule,
+    InventoryModule
   ],
   declarations: [
-    DashboardComponent,
-    ItemListComponent
+    DashboardComponent
   ]
 })
 

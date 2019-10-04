@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { ItemListComponent } from './item-list/item-list.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';

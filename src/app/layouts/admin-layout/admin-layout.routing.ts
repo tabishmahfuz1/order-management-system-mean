@@ -1,7 +1,6 @@
 import { Routes } from '@angular/router';
 
 import { DashboardComponent } from '../../dashboard/dashboard.component';
-import { ItemListComponent } from '../../item-list/item-list.component';
 
 
 export const AdminLayoutRoutes: Routes = [
@@ -48,7 +47,6 @@ export const AdminLayoutRoutes: Routes = [
     //     }]
     // }
     { path: 'dashboard',    component: DashboardComponent },
-    { path: 'item',         component: ItemListComponent },
     // { path: 'user-profile',   component: UserProfileComponent },
     // { path: 'table-list',     component: TableListComponent },
     // { path: 'typography',     component: TypographyComponent },
