@@ -9,37 +9,37 @@
 	      </div>
 	      <div class="card-body pl-5">
 	      	<div class="row">
-	      		<div class="form-group p-2">
+	      		<div class="form-group p-2 w-25">
 		      		<label>Item Name</label>
 		      		<input class="form-control" [(ngModel)]="item.itemName" />
 		      	</div>
-		      	<div class="form-group p-2">
+		      	<div class="form-group p-2 w-25">
 		      		<label>Cost</label>
 		      		<input class="form-control" type="number" [(ngModel)]="item.itemCost">
 		      	</div>
 		     </div>
 		     <div class="row">
-		     	<div class="form-group p-2">
+		     	<div class="form-group p-2 w-25">
 		      		<label>Selling Price</label>
 		      		<input class="form-control" type="number" [(ngModel)]="item.itemPrice">
 		      	</div>
-		      	<div class="form-group p-2">
+		      	<div class="form-group p-2 w-25">
 		      		<label>Status</label>
-		      		<select class="form-control" [(ngModel)]="item.isActive">
-		      			<option value="1">Active</option>
-		      			<option value="0">Disabled</option>
-		      		</select>
+		      		<mat-select class="form-control" [value]="item.isActive" [(ngModel)]="item.isActive">
+		      			<mat-option [value]="true" >Active</mat-option>
+		      			<mat-option [value]="false" >Disabled</mat-option>
+		      		</mat-select>
 		      	</div>
 		     </div>
 		     <div class="row">
-		      	<div class="form-group p-2">
+		      	<div class="form-group p-2 w-25">
 		      		<label>Stock</label>
 		      		<input class="form-control" [value]="item.qtyOnHand">
 		      	</div>
 		     </div>
 	      </div>
-	      <div class="card-footer">
-	          <button (click)="saveItem($event)">
+	      <div class="card-footer justify-content-center">
+	          <button (click)="saveItem($event)" class="btn btn-success">
 	          	Save
 	          </button>
 	      </div>

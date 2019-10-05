@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Apollo } from 'apollo-angular';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import gql from 'graphql-tag';
-import { Item, Query } from '../../types';
+import { Item } from '../../types';
+import { ItemService } from './../item.service';
 
 @Component({
   selector: 'app-item-list',
@@ -12,32 +9,11 @@ import { Item, Query } from '../../types';
 })
 export class ItemListComponent implements OnInit {
   items: Item[];
-  constructor(private apollo: Apollo) { }
+  constructor(private itemService: ItemService) { }
 
   ngOnInit() {
-  	// this.items = 
-  	this.apollo.watchQuery<Query>({
-      query: gql`
-        query item {
-          item {
-            id
-            itemName
-            itemPrice
-            itemCost
-            isActive
-            qtyOnHand
-          }
-        }
-      `
-    })
-      .valueChanges
-      /*.pipe(
-        map(result => result.data.item)
-      )*/.subscribe(itemList => {
-      	// console.log(itemList.data.item);
-      	this.items = itemList.data.item;
-      	// console.log(itemList)
-      });
+  	this.itemService.getItems()
+    .subscribe( itemList => this.items = itemList );
   }
 
 }
