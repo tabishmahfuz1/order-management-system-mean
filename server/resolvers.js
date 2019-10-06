@@ -16,6 +16,15 @@ const resolvers = {
       let item = await db.items.findByPk(id);
 
       return item;
+    },
+    getItemStockDetails: async (_, { itemId }, { db }) => {
+      let itemStockDetails = await db.itemStockDetail.findAll({
+        where: {
+          itemId
+        }
+      });
+
+      return itemStockDetails;
     }
   },
   Mutation: {

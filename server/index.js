@@ -8,6 +8,8 @@ const app					= require('./app');
 const db 					= require('./models');
 const server 				= new ApolloServer({ typeDefs, resolvers, context: { db } });
 
+console.dir(db)
+
 server.applyMiddleware({ app });
 
 app.listen({ port: config.port }, () =>

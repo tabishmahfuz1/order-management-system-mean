@@ -12,7 +12,9 @@ import {
   MatRippleModule,
   MatFormFieldModule,
   MatTooltipModule,
-  MatSelectModule
+  MatSelectModule,
+  MatTabsModule,
+  MatSnackBarModule
 } from '@angular/material';
 
 @NgModule({
@@ -29,6 +31,8 @@ import {
     MatInputModule,
     MatSelectModule,
     MatTooltipModule,
+    MatTabsModule,
+    MatSnackBarModule,
     RouterModule.forChild(InventoryRoutes),
   ]
 })

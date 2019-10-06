@@ -6,6 +6,7 @@ const typeDefs = gql`
     item(itemFilterInput: ItemFilterInput): [Item]!
     getItem(id: Int!): Item
     itemType(id: Int!): ItemType
+    getItemStockDetails(itemId: Int!): [ItemStockDetail]!
   }
 
   type Item {
@@ -18,6 +19,14 @@ const typeDefs = gql`
   	isActive: Boolean
   }
 
+  type ItemStockDetail {
+    id: Int!
+    date: String
+    quantity: Int!
+    remarks: String
+    itemId: Int
+  }
+
   type ItemType {
   	id: Int!
   	name: String!
@@ -26,7 +35,6 @@ const typeDefs = gql`
 
   type Mutation {
     saveItem(item: ItemInput): Item!
-    updateItem(item: ItemInput!): Item!
     deleteItem(id: Int!): Boolean
   }
 

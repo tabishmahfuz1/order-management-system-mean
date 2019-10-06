@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import { Item } from '../../types';
 import { ItemService } from './../item.service';
-
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-item-detail',
@@ -22,16 +22,17 @@ export class ItemDetailComponent implements OnInit {
   		isActive: true
   	};
 
-	constructor(route: ActivatedRoute, private itemService: ItemService) { 
+	constructor(
+		private route: ActivatedRoute, 
+		private itemService: ItemService, 
+		private _snackBar: MatSnackBar) { 
 	  	route.params.subscribe((p) => {
 	  		this.id = parseInt(p.id);
 	  		this.item.id = this.id;
 	  	});
 		if(this.id) {
 			this.itemService.getItem(this.id)
-	      	.subscribe(item => {
-	      		this.item = item;
-		    });
+	      	.subscribe(item => this.item = item);
 		}
 	  	
 	}
@@ -43,7 +44,10 @@ export class ItemDetailComponent implements OnInit {
   		this.itemService.saveItem(this.item)
   		.subscribe((savedItem) => {
   			this.item = savedItem;
-  			console.log('Item Saved', savedItem);
+  			this._snackBar.open("Item Saved", '',{
+			  duration: 3000
+			});
+  			// console.log('Item Saved', savedItem);
   		});
   	}
 
