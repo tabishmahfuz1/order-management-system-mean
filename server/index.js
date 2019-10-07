@@ -1,14 +1,30 @@
 const { ApolloServer, gql } = require('apollo-server-express');
-const typeDefs 				= require('./schema');
-const resolvers 			= require('./resolvers');
+const typeDefs 				= require('./gaphql/schema');
+const resolvers 			= require('./gaphql/resolvers');
 const dotenv 				= require('dotenv');
 dotenv.config();
 const config 				= require('./config')[process.env.NODE_ENV || 'development'];
 const app					= require('./app');
 const db 					= require('./models');
-const server 				= new ApolloServer({ typeDefs, resolvers, context: { db } });
 
-console.dir(db)
+const secret 				= process.env.SECRET || 'ABC123';
+
+app.set('secret', secret);
+
+const context = (req) => {
+	const auth = (req.headers && req.headers.authorization) || '';
+  	const authDecoded = new Buffer(auth, 'base64').toString('ascii').split('|');
+
+}
+
+const server 				= new ApolloServer({ 
+								typeDefs, 
+								resolvers,
+								db,
+								context
+							});
+
+// console.dir(db)
 
 server.applyMiddleware({ app });
 

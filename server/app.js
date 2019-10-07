@@ -3,6 +3,9 @@ const router = express.Router();
 const authController = require('./controllers/authController');
 const itemController = require('./controllers/itemController');
 const app = express();
+const bodyParser = require('body-parser');
+
+app.use(bodyParser.json())
 
 app.use('/auth', authController);
 app.use('/item', itemController);
