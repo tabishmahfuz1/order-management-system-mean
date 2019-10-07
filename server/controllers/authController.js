@@ -30,7 +30,7 @@ router.post('/login', async function(req, res){
 
 	if(bcrypt.compareSync(req.body.password, userHashedPass)) {
 		// User was authenticated
-		var token = jwt.sign(payload, app.get('Secret'), {
+		var token = jwt.sign(req.body, app.get('Secret'), {
             expiresIn: 1440 // expires in 24 hours
       	});
       	res.json({
