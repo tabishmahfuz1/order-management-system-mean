@@ -21,6 +21,7 @@ const typeDefs = gql`
 
   type ItemStockDetail {
     id: Int!
+    type: String
     date: String
     quantity: Int!
     remarks: String

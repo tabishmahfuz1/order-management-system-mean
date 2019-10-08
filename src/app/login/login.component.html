@@ -1,0 +1,37 @@
+<div class="h-100 row align-items-center justify-content-center">
+	<mat-card class="w-25">
+		<div class="d-flex align-items-center justify-content-center">
+			<form [formGroup]="loginForm" class="login100-form validate-form">
+				<span class="w-full text-center">
+					Account Login
+				</span>
+				
+
+				<mat-form-field>
+				    <input matInput placeholder="Email" 
+				    		formControlName="email"  />
+				</mat-form-field>
+				
+				
+				<mat-form-field>
+				    <input matInput placeholder="Password" 
+				    		type="password" 
+				    		formControlName="password" />
+				</mat-form-field>
+
+				<div class="justify-content-center">
+					<button mat-button class="btn-success bg-light text-dark"
+							(click)="doLogin()">
+						Sign in
+					</button>
+				</div>
+				
+				<div class="text-center w-full">
+					<a href="#" class="txt1">
+						Forgot password?
+					</a>
+				</div>
+			</form>
+		</div>
+	</mat-card>
+</div>

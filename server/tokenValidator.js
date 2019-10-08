@@ -1,26 +1,53 @@
+const jwt  = require('jsonwebtoken');
 module.exports = (req, res, next) => {
-    /*const authorizationHeaader = req.headers.authorization;
+    const authorizationHeaader = req.headers.authorization;
+    let result = validateToken(authorizationHeaader, req.app.get('secret'));
+
+    if(result.error) {
+      res.status(result.status).json(result);
+    } else {
+      console.log("This is the GREAT Middleware");
+      req.user = result.user;
+      next();
+    }
+}
+
+var validateToken = (authorizationHeaader, secret) => {
     let result;
     if (authorizationHeaader) {
-      const token = req.headers.authorization.split(' ')[1]; // Bearer <token>
+      const token = authorizationHeaader.split(' ')[1]; // Bearer <token>
       const options = {
-        expiresIn: '2d',
-        issuer: 'https://scotch.io'
+        expiresIn: 1440
       };
       try {
-        result = jwt.verify(token, process.env.JWT_SECRET, options);
-        req.decoded = result;
-        next();
+        result = jwt.verify(token, secret, options);
+
+        // console.trace({ result })
+        // next();
+        result = {
+          success: true,
+          user: result
+        }
       } catch (err) {
-        throw new Error(err);
+        console.error(err)
+        // throw new Error(err);
+        result = { 
+          error: `Authentication error. Invalid Token.`,
+          success: false,
+          status: 401
+        };
+        // res.status(401).json(result);
       }
     } else {
       result = { 
         error: `Authentication error. Token required.`,
+        success: false,
         status: 401 
       };
-      res.status(401).send(result);
-    }*/
-    console.log("This is the GREAT Middleware");
-    next();
-  }
+      // res.status(401).json(result);
+    }
+
+    return result;
+}
+
+module.exports.validateToken = validateToken;

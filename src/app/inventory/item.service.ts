@@ -3,7 +3,7 @@ import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
-import { Item, Query, ItemInput, Mutation } from '../types';
+import { Item, Query, ItemInput, Mutation, ItemStockDetail } from '../types';
 
 const getItemQuery = gql`
 			        query getItem($id: Int!) {
@@ -44,6 +44,19 @@ const getItemsQuery = gql`
 		        }
 		      `;
 
+const getItemStockDetails = gql`
+		        query getItemStockDetails($id: Int!) {
+		          getItemStockDetails(itemId: $id) {
+		            id
+		            type
+				    date
+				    quantity
+				    remarks
+				    itemId
+		          }
+		        }
+		      `;
+
 @Injectable({
   providedIn: 'root'
 })
@@ -58,6 +71,17 @@ export class ItemService {
 	      .valueChanges
 	      .pipe(
 	        map(result => result.data.item)
+	      );
+  }
+
+  getItemStockDetails(id: number): Observable<ItemStockDetail[]> {
+  		return this.apollo.watchQuery<Query>({
+	      query: getItemStockDetails,
+	      variables: { id }
+	    })
+	      .valueChanges
+	      .pipe(
+	        map(result => result.data.getItemStockDetails)
 	      );
   }
 

@@ -15,9 +15,17 @@ export type ItemInput = {
   	isActive: boolean;
 }
 
+export type ItemStockDetail = {
+  id: number;
+  type: string;
+  quantity: number;
+  remarks: string;
+}
+
 export type Query = {
 	item: Item[];
-	getItem: Item;
+  getItem: Item;
+	getItemStockDetails: ItemStockDetail[];
 }
 
 export type Mutation = {

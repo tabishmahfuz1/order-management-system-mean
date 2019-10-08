@@ -2,22 +2,23 @@
 const resolvers = {
   Query: {
     hello: () => 'Hello world! the time is ' + new Date(),
-    item: async (_, { itemFilterInput }, { db }) => {
-
+    item: async (_, { itemFilterInput }, { user, db }) => {
+      if (!user) throw new Error("Unauthorized");
     	let filters = itemFilterInput
     					? { where: itemFilterInput }
     					: {}; 
-
     	let items = await db.items.findAll(filters);
 
     	return items;
     },
-    getItem: async (_, { id }, { db }) => {
+    getItem: async (_, { id }, { user, db }) => {
+      if (!user) throw new Error("Unauthorized");
       let item = await db.items.findByPk(id);
 
       return item;
     },
-    getItemStockDetails: async (_, { itemId }, { db }) => {
+    getItemStockDetails: async (_, { itemId }, { user, db }) => {
+      if (!user) throw new Error("Unauthorized");
       let itemStockDetails = await db.itemStockDetail.findAll({
         where: {
           itemId
@@ -28,7 +29,8 @@ const resolvers = {
     }
   },
   Mutation: {
-  	saveItem: async (_, { item }, { db }) => {
+  	saveItem: async (_, { item }, { user, db }) => {
+      if (!user) throw new Error("Unauthorized");
   		let itemToSave;
       if ( 'id' in item ) {
         itemToSave = await db.items.findByPk(item.id);

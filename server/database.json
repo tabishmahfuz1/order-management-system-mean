@@ -30,5 +30,13 @@
     "host": "127.0.0.1",
     "dialect": "mysql",
     "operatorsAliases": false
+  },
+  "home_acer_black": {
+    "username": "root",
+    "password": null,
+    "database": "order_management",
+    "host": "127.0.0.1",
+    "dialect": "mysql",
+    "operatorsAliases": false
   }
 }

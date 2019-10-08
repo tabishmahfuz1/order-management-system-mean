@@ -6,28 +6,38 @@ dotenv.config();
 const config 				= require('./config')[process.env.NODE_ENV || 'development'];
 const app					= require('./app');
 const db 					= require('./models');
-
+const validateToken 		= require('./tokenValidator').validateToken;
 const secret 				= process.env.SECRET || 'ABC123';
 
 app.set('secret', secret);
 
-const context = (req) => {
-	const auth = (req.headers && req.headers.authorization) || '';
-  	const authDecoded = new Buffer(auth, 'base64').toString('ascii').split('|');
+let getUser = token => {
+	let result = validateToken(token, secret);
+	if(result.error) {
+		return null;
+	}
+	return result.user;
+}
 
+const context = ({ req }) => {
+	let user = getUser(req.headers.authorization);
+
+	return { user, db };
 }
 
 const server 				= new ApolloServer({ 
 								typeDefs, 
 								resolvers,
-								db,
 								context
 							});
 
 // console.dir(db)
 
 server.applyMiddleware({ app });
-
-app.listen({ port: config.port }, () =>
-  console.log(`🚀 API Server ready at http://localhost:${config.port}`) //${server.graphqlPath}
-);
+try {
+	app.listen({ port: config.port }, () =>
+	  console.log(`🚀 API Server ready at http://localhost:${config.port}`) //${server.graphqlPath}
+	);
+} catch(err) {
+	console.error(err);
+}

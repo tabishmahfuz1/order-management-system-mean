@@ -12,6 +12,7 @@ import {
   MatRippleModule,
   MatFormFieldModule,
   MatTooltipModule,
+  MatTableModule,
   MatSelectModule,
   MatTabsModule,
   MatSnackBarModule
@@ -31,6 +32,7 @@ import {
     MatInputModule,
     MatSelectModule,
     MatTooltipModule,
+    MatTableModule,
     MatTabsModule,
     MatSnackBarModule,
     RouterModule.forChild(InventoryRoutes),

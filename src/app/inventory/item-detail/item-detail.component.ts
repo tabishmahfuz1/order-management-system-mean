@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import { Item } from '../../types';
+import { Item, ItemStockDetail } from '../../types';
 import { ItemService } from './../item.service';
-import {MatSnackBar} from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatTableModule } from '@angular/material/table';
 
 @Component({
   selector: 'app-item-detail',
@@ -12,6 +13,8 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 
 export class ItemDetailComponent implements OnInit {
 	id:  number;
+  stockDetails: ItemStockDetail[];
+  displayedColumns: string[] = ['type', 'quantity', 'remarks'];
 
   	item: Item = {
   		id: null,
@@ -33,6 +36,11 @@ export class ItemDetailComponent implements OnInit {
 		if(this.id) {
 			this.itemService.getItem(this.id)
 	      	.subscribe(item => this.item = item);
+      this.itemService.getItemStockDetails(this.id)
+          .subscribe(stockDetails => {
+            this.stockDetails = stockDetails; 
+            console.log(this.stockDetails)
+          });
 		}
 	  	
 	}
@@ -45,8 +53,8 @@ export class ItemDetailComponent implements OnInit {
   		.subscribe((savedItem) => {
   			this.item = savedItem;
   			this._snackBar.open("Item Saved", '',{
-			  duration: 3000
-			});
+  			  duration: 3000
+  			});
   			// console.log('Item Saved', savedItem);
   		});
   	}

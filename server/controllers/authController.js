@@ -14,37 +14,41 @@ router.post('/login', async function(req, res){
 
 	// console.dir(req.body);return "LALA";
 	console.log(req.body.username, req.body.password, req.body.email);
+	try {
+		let user = await db.user.findOne({
+			where: {
+				email: req.body.email
+			}
+		});
 
-	let user = await db.user.findOne({
-		where: {
-			email: req.body.email
+		if(!user) {
+			throw "User not found exception";
+			// TODO: Throw A nice Exception
 		}
-	});
 
-	if(!user) {
-		throw "User not found exception";
-		// TODO: Throw A nice Exception
-	}
+		let userHashedPass = user.password.replace(/^\$2y(.+)$/i, '$2a$1');
 
-	let userHashedPass = user.password.replace(/^\$2y(.+)$/i, '$2a$1');
-
-	if(bcrypt.compareSync(req.body.password, userHashedPass)) {
-		// User was authenticated
-		var token = jwt.sign(req.body, app.get('Secret'), {
-            expiresIn: 1440 // expires in 24 hours
-      	});
-      	res.json({
-	        message: 'Successfully Authorized ',
-	        token: token
-	    });
-	} else {
+		if(bcrypt.compareSync(req.body.password, userHashedPass)) {
+			// User was authenticated
+			var token = jwt.sign(req.body, req.app.get('secret'), {
+	            expiresIn: 1440 // expires in 24 hours
+	      	});
+	      	res.json({
+		        message: 'Successfully Authorized ',
+		        token: token
+		    });
+		} else {
+			res.json({
+				message: 'Invalid Credentials'
+			}, 401);
+		}
+	} catch(err) {
+		console.error(err);
 		res.json({
-			message: 'Invalid Credentials'
-		}, 401);
+			message: "The server encountered an error"
+		}, 500);
 	}
-
-
-	res.send('Login will be done here');
+	// res.send('Login will be done here');
 });
 
 module.exports = router;

@@ -10,14 +10,28 @@ import { HttpLinkModule, HttpLink } from 'apollo-angular-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { JwtHelperService, JWT_OPTIONS  } from '@auth0/angular-jwt';
+
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { ComponentsModule } from './components/components.module';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { LoginComponent } from './login/login.component';
+
+import { ApolloLink, concat } from 'apollo-link';
+import { HttpHeaders } from '@angular/common/http';
+
+import {
+  MatButtonModule,
+  MatInputModule,
+  MatFormFieldModule,
+  MatCardModule,
+} from '@angular/material';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AdminLayoutComponent
+    AdminLayoutComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -25,24 +39,41 @@ import { FormsModule } from '@angular/forms';
     HttpClientModule,
     ApolloModule,
     HttpLinkModule,
+    MatButtonModule,
+    MatInputModule,
+    MatCardModule,
+    MatFormFieldModule,
     BrowserAnimationsModule,
     ComponentsModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [{
     provide: APOLLO_OPTIONS,
     useFactory: (httpLink: HttpLink) => {
+      const http = httpLink.create({ uri: 'http://localhost:3000/graphql' });
+
+      const authMiddleware = new ApolloLink((operation, forward) => {
+        // add the authorization to the headers
+        let token = localStorage.getItem('token') || null;
+        operation.setContext({
+          headers: new HttpHeaders().set('Authorization', `Bearer ${token}`)
+        });
+
+        return forward(operation);
+      });
       return {
         cache: new InMemoryCache({
           addTypename: false
         }),
-        link: httpLink.create({
-          uri: "http://localhost:3000/graphql"
-        })
+        link: concat(authMiddleware, http)
       }
     },
     deps: [HttpLink]
-  }],
+  },
+    { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
+    JwtHelperService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { 

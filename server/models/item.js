@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
       	field: 'status',
       	type: DataTypes.BOOLEAN
       },
-      qtyonHand: {
+      qtyOnHand: {
       	field: 'qty_on_hand',
       	type: DataTypes.INTEGER
       },
