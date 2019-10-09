@@ -8,11 +8,12 @@ export type Item = {
 }
 
 export type ItemInput = {
-	id: number;
+	  id: number;
   	itemName: string;
   	itemCost: number;
   	itemPrice: number;
   	isActive: boolean;
+    qtyOnHand: number;
 }
 
 export type ItemStockDetail = {

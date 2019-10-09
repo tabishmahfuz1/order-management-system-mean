@@ -5,7 +5,7 @@
 	          <div class="card-icon">
 	              <i class="material-icons">content_copy</i>
 	          </div>
-	          <p class="card-title">{{ id? "Edit" : "New" }} Item</p>
+	          <p class="card-title">{{ !isNewItem? "Edit" : "New" }} Item</p>
 	      </div>
 	      <div class="card-body pl-5">
 	        <mat-tab-group>
@@ -37,7 +37,7 @@
 					     <div class="row">
 					      	<div class="form-group p-2 w-25">
 					      		<label>Qty On Hand</label>
-					      		<input class="form-control" readonly="" [value]="item.qtyOnHand">
+					      		<input class="form-control" [readonly]="!isNewItem" [value]="item.qtyOnHand">
 					      	</div>
 					     </div>
 					</div>

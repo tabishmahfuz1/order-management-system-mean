@@ -99,8 +99,6 @@ export class ItemService {
   saveItem(item: Item): Observable<Item> {
   	let itemInput = item;
 
-	delete itemInput.qtyOnHand;
-
   	return this.apollo.mutate<Mutation>({
   			mutation: saveItemMutation,
   			variables: { item: itemInput }

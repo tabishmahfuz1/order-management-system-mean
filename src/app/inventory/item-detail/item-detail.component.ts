@@ -14,6 +14,7 @@ import { MatTableModule } from '@angular/material/table';
 export class ItemDetailComponent implements OnInit {
 	id:  number;
   stockDetails: ItemStockDetail[];
+  isNewItem: boolean = true;
   displayedColumns: string[] = ['type', 'quantity', 'remarks'];
 
   	item: Item = {
@@ -34,13 +35,7 @@ export class ItemDetailComponent implements OnInit {
 	  		this.item.id = this.id;
 	  	});
 		if(this.id) {
-			this.itemService.getItem(this.id)
-	      	.subscribe(item => this.item = item);
-      this.itemService.getItemStockDetails(this.id)
-          .subscribe(stockDetails => {
-            this.stockDetails = stockDetails; 
-            console.log(this.stockDetails)
-          });
+      this.fetchItem();
 		}
 	  	
 	}
@@ -48,6 +43,30 @@ export class ItemDetailComponent implements OnInit {
   	ngOnInit() {
   	}
 
+    /**
+    * Fetch and update Item Details
+    */
+    fetchItem() {
+      this.isNewItem = false;
+      this.itemService.getItem(this.id)
+          .subscribe(item => this.item = item);
+      this.fetchItemStockDetails();
+    }
+
+    /**
+    * Fetch and update Item Stock Details
+    */
+    fetchItemStockDetails() {
+      this.itemService.getItemStockDetails(this.id)
+          .subscribe(stockDetails => {
+            this.stockDetails = stockDetails; 
+            console.log(this.stockDetails)
+          });  
+    }
+
+    /**
+    * Save the Item to the Server
+    */
   	saveItem(e) {
   		this.itemService.saveItem(this.item)
   		.subscribe((savedItem) => {
@@ -55,6 +74,11 @@ export class ItemDetailComponent implements OnInit {
   			this._snackBar.open("Item Saved", '',{
   			  duration: 3000
   			});
+
+        if(this.isNewItem) {
+          this.isNewItem = false;
+          this.fetchItemStockDetails();
+        }
   			// console.log('Item Saved', savedItem);
   		});
   	}

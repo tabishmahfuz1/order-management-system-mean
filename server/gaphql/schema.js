@@ -45,6 +45,7 @@ const typeDefs = gql`
     itemCost: Float
     itemPrice: Float!
     isActive: Boolean
+    qtyOnHand: Int
   }
 
   input ItemFilterInput {

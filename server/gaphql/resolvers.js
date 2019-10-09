@@ -32,7 +32,7 @@ const resolvers = {
   	saveItem: async (_, { item }, { user, db }) => {
       if (!user) throw new Error("Unauthorized");
   		let itemToSave;
-      if ( 'id' in item ) {
+      if ( item.id ) {
         itemToSave = await db.items.findByPk(item.id);
         if(!itemToSave) {
           throw "Item Not Found Exception";
