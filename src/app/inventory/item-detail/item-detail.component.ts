@@ -4,6 +4,7 @@ import { Item, ItemStockDetail } from '../../types';
 import { ItemService } from './../item.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-item-detail',
@@ -29,7 +30,8 @@ export class ItemDetailComponent implements OnInit {
 	constructor(
 		private route: ActivatedRoute, 
 		private itemService: ItemService, 
-		private _snackBar: MatSnackBar) { 
+		private _snackBar: MatSnackBar,
+    public router: Router) { 
 	  	route.params.subscribe((p) => {
 	  		this.id = parseInt(p.id);
 	  		this.item.id = this.id;
@@ -76,8 +78,7 @@ export class ItemDetailComponent implements OnInit {
   			});
 
         if(this.isNewItem) {
-          this.isNewItem = false;
-          this.fetchItemStockDetails();
+          this.router.navigate(['/item/' + this.item.id]);
         }
   			// console.log('Item Saved', savedItem);
   		});

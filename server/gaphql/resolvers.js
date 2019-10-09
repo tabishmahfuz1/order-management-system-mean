@@ -38,6 +38,7 @@ const resolvers = {
           throw "Item Not Found Exception";
         }
         delete item.id;
+        delete item.qtyOnHand;
         await itemToSave.update(item);
       } else {
 
@@ -46,7 +47,6 @@ const resolvers = {
         }
 
         itemToSave = await db.items.create(item);
-
         if(item.qtyOnHand) {
           await db.itemStockDetail.create({
             date: new Date(),

@@ -37,7 +37,10 @@
 					     <div class="row">
 					      	<div class="form-group p-2 w-25">
 					      		<label>Qty On Hand</label>
-					      		<input class="form-control" [readonly]="!isNewItem" [value]="item.qtyOnHand">
+					      		<input class="form-control" 
+					      				type="number" 
+					      				[readonly]="!isNewItem" 
+					      				[(ngModel)]="item.qtyOnHand">
 					      	</div>
 					     </div>
 					</div>
