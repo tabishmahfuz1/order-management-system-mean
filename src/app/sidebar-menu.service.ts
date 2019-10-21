@@ -20,6 +20,8 @@ export class SidebarMenuService {
   	this.router.events
   	.filter(event => event instanceof NavigationStart)
     .subscribe((event:NavigationStart) => {
+
+    	
     	console.log(this.router.url, event.url);
     })
   }
