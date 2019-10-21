@@ -11,4 +11,8 @@ export const AdminLayoutRoutes: Routes = [
         // canActivate: [AuthGuard]
     },
     { path: 'dashboard',    component: DashboardComponent/*, canActivate: [AuthGuard]*/ },
+    {
+    	path: 'items',
+    	loadChildren: '../../inventory/inventory.module#InventoryModule'
+    }
 ];
