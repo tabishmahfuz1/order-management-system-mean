@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SidebarMenuService } from '../../sidebar-menu.service';
+import { MenuService } from '../../menu.service';
 
 declare const $: any;
 declare interface RouteInfo {
@@ -22,14 +22,16 @@ export const ROUTES: RouteInfo[] = [
 export class SidebarComponent implements OnInit {
   menuItems: any[];
 
-  constructor(private menuService: SidebarMenuService) { }
+  constructor(private menuService: MenuService) { }
 
   ngOnInit() {
     // this.menuItems = ROUTES.filter(menuItem => menuItem);
 
-    this.menuService.getMenuItems()
-        .subscribe(routes => this.menuItems = routes);
-
+    /*this.menuService.getMenuItems()
+        .subscribe(routes => {
+          this.menuItems = routes;
+          console.log("Updated Menus", this.menuItems)
+        });*/
   }
   isMobileMenu() {
     // return false;

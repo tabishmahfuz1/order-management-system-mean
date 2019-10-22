@@ -6,7 +6,6 @@ import { AdminLayoutRoutes } from './admin-layout.routing';
 import { DashboardComponent } from '../../dashboard/dashboard.component';
 import { ItemListComponent } from '../../inventory/item-list/item-list.component';
 // import { InventoryModule } from '../../inventory/inventory.module';
-import { SidebarMenuService } from '../../sidebar-menu.service';
 
 import {
   MatButtonModule,
@@ -35,10 +34,4 @@ import {
   ]
 })
 
-export class AdminLayoutModule {
-  constructor(private menuService: SidebarMenuService) { 
-    this.menuService.setMenuItems(
-        [{ path: '/dashboard', title: 'Dashboard',  icon: 'dashboard', class: '' }]
-      );
-  }
-}
+export class AdminLayoutModule {}

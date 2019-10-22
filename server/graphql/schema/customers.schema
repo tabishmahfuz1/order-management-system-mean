@@ -1,0 +1,21 @@
+type Customer {
+	id: Int
+	name: String
+	address: String
+	city: String
+	stateId: Int
+	state: State
+	discount: Float
+	status: Boolean
+}
+
+extend type Query {
+	customer(customerFilterInput: CustomerFilterInput): [Customer]!
+	getCustomer(id: Int!): Customer
+}
+
+type CustomerFilterInput {
+	id: Int
+	name: String
+	status: Boolean
+}

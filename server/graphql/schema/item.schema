@@ -1,15 +1,4 @@
-const { gql } = require('apollo-server-express');
-
-const typeDefs = gql`
-  type Query {
-    hello: String
-    item(itemFilterInput: ItemFilterInput): [Item]!
-    getItem(id: Int!): Item
-    itemType(id: Int!): ItemType
-    getItemStockDetails(itemId: Int!): [ItemStockDetail]!
-  }
-
-  type Item {
+type Item {
   	id: Int!
   	itemName: String!
   	itemType: ItemType
@@ -17,43 +6,47 @@ const typeDefs = gql`
   	itemPrice: Float!
     qtyOnHand: Int
   	isActive: Boolean
-  }
+}
 
-  type ItemStockDetail {
+type ItemStockDetail {
     id: Int!
     type: String
     date: String
     quantity: Int!
     remarks: String
     itemId: Int
-  }
+}
 
-  type ItemType {
+type ItemType {
   	id: Int!
   	name: String!
   	isActive: Boolean
-  }
+}
 
-  type Mutation {
+extend type Query {
+	item(itemFilterInput: ItemFilterInput): [Item]!
+  getItem(id: Int!): Item
+  itemType(id: Int!): ItemType
+  getItemStockDetails(itemId: Int!): [ItemStockDetail]!
+}
+
+extend type Mutation {
     saveItem(item: ItemInput): Item!
     deleteItem(id: Int!): Boolean
-  }
+}
 
-  input ItemInput {
+
+input ItemInput {
     id: Int
     itemName: String!
     itemCost: Float
     itemPrice: Float!
     isActive: Boolean
     qtyOnHand: Int
-  }
+}
 
-  input ItemFilterInput {
+	input ItemFilterInput {
     id: Int
     itemName: String
     isActive: Boolean
-  }
-
-`;
-
-module.exports = typeDefs;
+}

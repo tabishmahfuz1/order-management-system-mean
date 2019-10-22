@@ -3,7 +3,7 @@ import { ROUTES } from '../sidebar/sidebar.component';
 import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
 import { Router } from '@angular/router';
 import { AuthService } from '../../auth.service';
-
+import { MenuService } from '../../menu.service';
 
 @Component({
   selector: 'app-navbar',
@@ -20,7 +20,8 @@ export class NavbarComponent implements OnInit {
     constructor(location: Location,  
                 private element: ElementRef, 
                 private router: Router,
-                private auth: AuthService) {
+                private auth: AuthService,
+                private menuService: MenuService) {
       this.location = location;
           this.sidebarVisible = false;
     }
@@ -113,6 +114,11 @@ export class NavbarComponent implements OnInit {
 
         }
     };
+
+    sortZero() {
+      return 0;
+    }
+
 
     getTitle(){
       var titlee = this.location.prepareExternalUrl(this.location.path());

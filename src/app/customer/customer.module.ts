@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { CustomerListComponent } from './customer-list/customer-list.component';
+import { CustomerDetailComponent } from './customer-detail/customer-detail.component';
+import { CustomerRoutes } from './customers.routing';
 import { RouterModule } from '@angular/router';
-import { InventoryRoutes } from './inventory.routing';
-import { ItemListComponent } from './item-list/item-list.component';
-import { ItemDetailComponent } from './item-detail/item-detail.component';
 import { FormsModule } from '@angular/forms';
 import { MenuService } from '../menu.service';
 
@@ -19,11 +19,9 @@ import {
   MatSnackBarModule
 } from '@angular/material';
 
+
 @NgModule({
-  declarations: [
-  	ItemListComponent,
-	  ItemDetailComponent
-  ],
+  declarations: [CustomerListComponent, CustomerDetailComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -36,7 +34,7 @@ import {
     MatTableModule,
     MatTabsModule,
     MatSnackBarModule,
-    RouterModule.forChild(InventoryRoutes),
+    RouterModule.forChild(CustomerRoutes),
   ]
 })
-export class InventoryModule {}
+export class CustomerModule { }

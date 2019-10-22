@@ -14,5 +14,9 @@ export const AdminLayoutRoutes: Routes = [
     {
     	path: 'items',
     	loadChildren: '../../inventory/inventory.module#InventoryModule'
+    },
+    {
+        path: 'customers',
+        loadChildren: '../../customer/customer.module#CustomerModule'
     }
 ];
