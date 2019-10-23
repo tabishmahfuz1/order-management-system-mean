@@ -1,14 +1,11 @@
 const dotenv 				= require('dotenv');
 dotenv.config();
-const config 				= require('./config')[process.env.NODE_ENV || 'development'];
 const app					= require('./app');
+const graphQlServer 		= require('./app/graphql');
+const config 				= require('./config')[process.env.NODE_ENV || 'development'];
 const secret 				= process.env.SECRET || 'ABC123';
 
-const graphQlServer 		= require('./graphql/server.js');
-
 app.set('secret', secret);
-
-// console.dir(db)
 
 graphQlServer.applyMiddleware({ app });
 

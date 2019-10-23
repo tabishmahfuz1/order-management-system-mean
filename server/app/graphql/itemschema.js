@@ -46,7 +46,7 @@ exports.typeDefs = `
 	    qtyOnHand: Int
 	}
 
-  	input ItemFilterInput {
+  input ItemFilterInput {
 	    id: Int
 	    itemName: String
 	    isActive: Boolean
