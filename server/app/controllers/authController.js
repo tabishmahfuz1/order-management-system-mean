@@ -5,15 +5,30 @@ const jwt  = require('jsonwebtoken');
 const db 	= require('./../models');
 const bcrypt = require('bcrypt');
 
-router.post('/register', function(req, res){
+var register = async function(req, res){
 	
-	res.send('Registeration will be done here');
-});
+	if ( ! req.body.email || ! req.body.password || ! req.body.name ) {
+		res.json({
+			error: "Invalid or missing required field"
+		});
+	} else {
+		let encryptedPassword = await bcrypt.hash(req.body.password, 10);
 
-router.post('/login', async function(req, res){
+		let user = await db.user.create({
+			name: req.body.name,
+			email: req.body.email,
+			password: encryptedPassword
+		});
+
+		return login(req, res);
+	}
+}
+
+
+var login = async function(req, res){
 
 	// console.dir(req.body);return "LALA";
-	console.log(req.body.username, req.body.password, req.body.email);
+	console.log(req.body);
 	try {
 		let user = await db.user.findOne({
 			where: {
@@ -49,6 +64,9 @@ router.post('/login', async function(req, res){
 		}, 500);
 	}
 	// res.send('Login will be done here');
-});
+}
+
+router.post('/register', register);
+router.post('/login', login);
 
 module.exports = router;
