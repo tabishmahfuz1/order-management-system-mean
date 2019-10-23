@@ -22,6 +22,10 @@ export class MenuService {
 			{ path: '/items/new', title: 'New Item',  icon:'add_circle_outline', class: '' },
     		{ path: '/items', title: 'Items',  icon:'list', class: '' }
 		],
+    'customers': [
+      { path: '/customers/new', title: 'New Customer',  icon:'add_circle_outline', class: '' },
+      { path: '/customers', title: 'Customers',  icon:'list', class: '' }
+    ],
 	};
 
 	titles = {

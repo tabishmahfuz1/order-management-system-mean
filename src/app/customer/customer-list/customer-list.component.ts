@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { CustomerService } from '../customer.service';
+import { Customer } from '../../types';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-customer-list',
@@ -6,10 +9,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./customer-list.component.css']
 })
 export class CustomerListComponent implements OnInit {
+	customers$: Observable<Customer[]>;
+  	constructor(private customerService: CustomerService) { }
 
-  constructor() { }
-
-  ngOnInit() {
-  }
+  	ngOnInit() {
+  		this.customers$ = this.customerService.getCustomers();
+  	}
 
 }

@@ -7,6 +7,7 @@
             <a class="navbar-brand" 
                 href="javascript:void(0)" 
                 *ngFor="let menuItem of menuService.titles | keyvalue: sortZero"  
+                routerLinkActive="active"
                 [routerLink]="'/' + menuItem.key">
                 {{ menuItem.value }}
             </a>
