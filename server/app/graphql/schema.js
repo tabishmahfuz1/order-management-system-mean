@@ -2,10 +2,8 @@ const { gql, makeExecutableSchema  }   = require('apollo-server-express');
  
 const item      = require('./itemschema');
 const customer  = require('./customer');
+const state  	= require('./state');
 const { merge } = require('lodash');
-
-let itemDefs       = item.typeDefs,
-    customerDefs   = customer.typeDefs;
 
 let Query = `
   type Query {
@@ -18,6 +16,6 @@ let Query = `
 `;
 
 module.exports = makeExecutableSchema({
-  typeDefs: [ Query, itemDefs, customerDefs ],
-  resolvers: merge(item.resolvers, customer.resolvers),
+  typeDefs: [ Query, item.typeDefs, customer.typeDefs, state.typeDefs ],
+  resolvers: merge(item.resolvers, customer.resolvers, state.resolvers),
 });

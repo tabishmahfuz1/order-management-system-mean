@@ -101,7 +101,11 @@ export class ItemService {
 
   	return this.apollo.mutate<Mutation>({
   			mutation: saveItemMutation,
-  			variables: { item: itemInput }
+  			variables: { item: itemInput },
+  			refetchQueries: [{
+		        query: getItemsQuery,
+		        variables: { repoFullName: 'apollographql/apollo-client' },
+		    }],
   		})
   		.pipe(
   			map(result => result.data.saveItem)

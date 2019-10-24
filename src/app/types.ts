@@ -35,6 +35,17 @@ export type Customer = {
   status: boolean;
 }
 
+export type CustomerInput = {
+  id: number;
+  name: string;
+  address: string;
+  city: string;
+  stateId: number;
+  state: string;
+  discount: number;
+  status: boolean;
+}
+
 export type State = {
   id: number;
   name: string;
@@ -42,11 +53,14 @@ export type State = {
 
 export type Query = {
   item: Item[];
-	customer: Customer[];
+  customer: Customer[];
+  state: State[];
+	getCustomer: Customer;
   getItem: Item;
 	getItemStockDetails: ItemStockDetail[];
 }
 
 export type Mutation = {
-	saveItem: Item;
+  saveItem: Item;
+	saveCustomer: Customer;
 }

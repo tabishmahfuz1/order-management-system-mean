@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Item, ItemStockDetail } from '../../types';
 import { ItemService } from './../item.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-item-detail',
@@ -36,11 +35,11 @@ export class ItemDetailComponent implements OnInit {
 	  		this.id = parseInt(p.id);
 	  		this.item.id = this.id;
 	  	});
-		if(this.id) {
-      this.fetchItem();
-		}
-	  	
-	}
+  		if(this.id) {
+        this.fetchItem();
+  		}
+  	  	
+  	}
 
   	ngOnInit() {
   	}
@@ -78,7 +77,7 @@ export class ItemDetailComponent implements OnInit {
   			});
 
         if(this.isNewItem) {
-          this.router.navigate(['/item/' + this.item.id]);
+          this.router.navigate(['/items/' + this.item.id]);
         }
   			// console.log('Item Saved', savedItem);
   		});

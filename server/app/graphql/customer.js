@@ -21,11 +21,6 @@ exports.typeDefs = `
 		status: Boolean
 	}
 
-	type State {
-		id: Int
-		name: String
-	}
-
 	extend type Mutation {
 		saveCustomer(customer: CustomerInput!): Customer
 	}
