@@ -12,15 +12,24 @@ var register = async function(req, res){
 			error: "Invalid or missing required field"
 		});
 	} else {
-		let encryptedPassword = await bcrypt.hash(req.body.password, 10);
 
-		let user = await db.user.create({
-			name: req.body.name,
-			email: req.body.email,
-			password: encryptedPassword
-		});
+		try {
+			let encryptedPassword = await bcrypt.hash(req.body.password, 10);
 
-		return login(req, res);
+			let user = await db.user.create({
+				name: req.body.name,
+				email: req.body.email,
+				password: encryptedPassword
+			});
+
+			return login(req, res);
+		} catch (err) {
+			console.error("Error while registering User", err);
+			res.status(500).json({
+				error: "Internal Server Error"
+			});
+		}
+		
 	}
 }
 
