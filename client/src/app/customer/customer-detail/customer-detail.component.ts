@@ -64,7 +64,7 @@ export class CustomerDetailComponent implements OnInit {
   	}
 
 
-  	saveCustomer() {
+  	saveCustomer(event) {
   		this.customerService
   			.saveCustomer(this.customer)
   			.subscribe(

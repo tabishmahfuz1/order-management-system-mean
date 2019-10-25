@@ -21,7 +21,7 @@ export class NavbarComponent implements OnInit {
                 private element: ElementRef, 
                 private router: Router,
                 private auth: AuthService,
-                private menuService: MenuService) {
+                public menuService: MenuService) {
       this.location = location;
           this.sidebarVisible = false;
     }
@@ -134,7 +134,7 @@ export class NavbarComponent implements OnInit {
       return 'Dashboard';
     }
 
-    logout(){
+    logout(event){
       console.log("Logging User Out Now")
       this.auth.logout();
       this.router.navigate(['login']);
